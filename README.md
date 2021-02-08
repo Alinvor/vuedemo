@@ -1,7 +1,5 @@
 # vuedemo
 
-Vue Demo
-
 > A Vue.js project
 
 ## Build Setup
