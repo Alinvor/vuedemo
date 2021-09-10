@@ -19,3 +19,6 @@ selenium-debug.log
 build/
 template/
 Temp/
+
+# package lock
+package-lock.json
