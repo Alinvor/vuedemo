@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <img src="./assets/logo.png" />
+    <div id="title">DVSNIER({{ label }})</div>
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      label: new Date().toDateString()
+    }
+  }
 }
 </script>
 
@@ -19,5 +25,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#title {
+  color: crimson;
+  font-size: x-large;
 }
 </style>
