@@ -7,9 +7,16 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '*',
+      redirect: '/index'
+      // requiresAuth: true
+    },
+    {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+      // keepAlive: true,
+      // requiresAuth: true
     }
   ]
 })
