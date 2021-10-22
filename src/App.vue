@@ -2,16 +2,28 @@
   <div id="app">
     <img src="./assets/logo.png" />
     <div id="title">DVSNIER({{ label }})</div>
+    <button @click="onclick">{{ dvs_name }}</button>
     <router-view />
   </div>
 </template>
 
 <script>
+import {Toast} from 'Vant'
+
 export default {
   name: 'App',
   data() {
     return {
-      label: new Date().toDateString()
+      label: new Date().toDateString(),
+      dvs_name: 'clicked'
+    }
+  },
+  components: {
+    [Toast.name]: Toast
+  },
+  methods: {
+    onclick() {
+      Toast('提示内容')
     }
   }
 }
