@@ -1,0 +1,69 @@
+{
+  // See article list links:
+  //
+  // 1. https://go.microsoft.com/fwlink/?LinkId=733558
+  // 2. https://vscode-docs.readthedocs.io/en/stable/editor/tasks/
+  // 3. https://code.visualstudio.com/docs/editor/variables-reference/
+  // 4. https://docs.brew.sh/Homebrew-and-Python/
+  //
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. NPM Install Dependencies",
+      "type": "shell",
+      "linux": {
+        "command": "npm install"
+      },
+      "osx": {
+        "command": "npm install"
+      },
+      "windows": {
+        "command": "npm install"
+      }
+    },
+    {
+      "label": "2. NPM RUN DEV Environment",
+      "type": "shell",
+      "linux": {
+        "command": "npm run dev"
+      },
+      "osx": {
+        "command": "npm run dev"
+      },
+      "windows": {
+        "command": "npm run dev"
+      }
+    },
+    {
+      "label": "3. NPM RUN Build Environment",
+      "type": "shell",
+      "linux": {
+        "command": "npm run build"
+      },
+      "osx": {
+        "command": "npm run build"
+      },
+      "windows": {
+        "command": "npm run build"
+      }
+    },
+    {
+      "label": "Z. Test",
+      "type": "shell",
+      "linux": {
+        "command": "echo ${workspaceFolder}"
+      },
+      "osx": {
+        // "command": "echo ${config:editor.fontSize}"
+        // "command": "echo ${config:python.envFile}"
+        // "command": "echo ${env:PYTHONPATH}"
+        // "command": "echo ${env:PATH}"
+        "command": "echo ${workspaceFolder}"
+      },
+      "windows": {
+        "command": "echo ${workspaceFolder}"
+      }
+    }
+  ]
+}
