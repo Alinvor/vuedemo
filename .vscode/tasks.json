@@ -49,6 +49,71 @@
       }
     },
     {
+      "label": "4. NRM List",
+      "type": "shell",
+      "linux": {
+        "command": "nrm ls"
+      },
+      "osx": {
+        "command": "nrm ls"
+      },
+      "windows": {
+        "command": "nrm ls"
+      }
+    },
+    {
+      "label": "5. NPM Root Directory",
+      "type": "shell",
+      "linux": {
+        "command": "npm root -g"
+      },
+      "osx": {
+        "command": "npm root -g"
+      },
+      "windows": {
+        "command": "npm root -g"
+      }
+    },
+    {
+      "label": "6. NPM Global Modules List",
+      "type": "shell",
+      "linux": {
+        "command": "npm ls -g --depth 0"
+      },
+      "osx": {
+        "command": "npm ls -g --depth 0"
+      },
+      "windows": {
+        "command": "npm ls -g --depth 0"
+      }
+    },
+    {
+      "label": "7. NPM Config List",
+      "type": "shell",
+      "linux": {
+        "command": "npm config list --json"
+      },
+      "osx": {
+        "command": "npm config list --json"
+      },
+      "windows": {
+        "command": "npm config list --json"
+      }
+    },
+    {
+      "label": "8. NPM Config Registry Value",
+      "type": "shell",
+      "linux": {
+        "command": "npm config get registry"
+      },
+      "osx": {
+        "command": "npm config get registry"
+      },
+      "windows": {
+        "command": "npm config get registry"
+      }
+    },
+    {
       "label": "Z. Test",
       "type": "shell",
       "linux": {
