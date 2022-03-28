@@ -3,23 +3,227 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Vue 测试实例</title>
+  <title>Vue 测试用例-动态绑定</title>
   <script src="./lib/vue.js"></script>
 </head>
 
 <body>
-  <div id="app">
-    <p>{{ message }}</p>
+  <div id="app-1" class="container">
+    <div style="font-size: xx-large;margin-bottom: 45px;text-align: center;">Vue 基础语法 </div>
+    <!-- 案例一 -->
+    <span v-bind:title="message" class="span-item common_item">
+      鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </span>
+    <!-- 案例二 -->
+    <p v-if="seen" class="common-bg">现在你看到我了</p>
+    <!-- 案例三 -->
+    <div class="common_item common_item_padding">
+      <ol>
+        <li v-for="todo in todos">
+          {{ todo.text }}
+        </li>
+      </ol>
+      <ul v-for="set in sets">
+        <li v-for="n in even(set)">{{ n }}</li>
+      </ul>
+    </div>
+    <!-- 案例四 -->
+    <!-- 动态 class -->
+    <div class="common_item common_item_padding common_item_margin">
+      <div style="margin-top: 15px;margin-bottom: 15px; padding: 5px; flex-direction: column;display: flex;">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">反转消息</button>
+        <div style="display: flex;flex-direction: row;margin-top: 10px;margin-bottom: 2px;">
+          <div style="font-size: 16px;">文本输入0:</div>
+          <input v-model="message_with_input" style="margin-left: 5px;">
+        </div>
+        <p :class="{common_item: hasCommonItem}" style="padding: 5px;">{{ message_with_input }}</p>
+      </div>
+    </div>
+    <!-- 动态 对象 class -->
+    <div class="common_item common_item_padding common_item_margin">
+      <div style="margin-top: 15px;margin-bottom: 15px; padding: 5px; flex-direction: column;display: flex;">
+        <p>{{ message }}</p>
+        <div style="display: flex;flex-direction: row;margin-top: 10px;margin-bottom: 2px;">
+          <div style="font-size: 16px;">文本输入1:</div>
+          <input v-model="message_with_input_1" style="margin-left: 5px;">
+        </div>
+        <p :class="classItem1" style="padding: 5px;">{{ message_with_input_1 }}</p>
+      </div>
+    </div>
+    <!-- 动态 计算 class -->
+    <div class="common_item common_item_padding common_item_margin">
+      <div style="margin-top: 15px;margin-bottom: 15px; padding: 5px; flex-direction: column;display: flex;">
+        <p>{{ message }}</p>
+        <div style="display: flex;flex-direction: row;margin-top: 10px;margin-bottom: 2px;">
+          <div style="font-size: 16px;">文本输入2:</div>
+          <input v-model="message_with_input" style="margin-left: 5px;">
+        </div>
+        <p :class="classItem2" style="padding: 5px;">{{ message_with_input }}</p>
+      </div>
+    </div>
+    <!-- 案例五 -->
+    <div class="common_item common_item_padding common_item_margin">
+      <p>Using mustaches: {{ rawHtml }}</p>
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+    <!-- 案例六 -->
+    <div class="common_item common_item_padding common_item_margin">
+      <p>Original message: "{{ message_with_computer }}"</p>
+      <p>Computed reversed message: "{{ reversedMessageWithComputer }}"</p>
+    </div>
+    <!-- 案例七 -->
+    <div class="common_item common_item_padding common_item_margin">
+      <div>{{ fullName }}</div>
+    </div>
+    <!-- 案例八 -->
+    <div class="common_item common_item_padding common_item_margin">
+      <button-counter name="案例八: A" @e_click="action_click"></button-counter>
+      <button-counter name="案例八: B" @e_click="action_click"></button-counter>
+    </div>
   </div>
 
   <script>
-    new Vue({
-      el: '#app',
+
+      // 定义一个名为 button-counter 的新组件
+      Vue.component('button-counter', {
+        props: ['name'],
+        // 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝;
+        data: function () {
+          return {
+            count: 0
+          }
+        },
+        methods: {
+          cmp_click: function () {
+            this.count++
+            this.$emit('e_click', this.count)
+          }
+        },
+        template: '<div><label>{{name}}: </label><button v-on:click="cmp_click">You clicked me {{ count }} times.</button></div>'
+      });
+
+    var app2 = new Vue({
+      el: '#app-1',
+      component: {
+        // 'button-counter': 'button-counter',
+      },
       data: {
-        message: 'Hello Vue.js!'
+        message: '页面加载于 ' + new Date().toLocaleString(),
+        seen: true,
+        todos: [
+          { text: '学习 JavaScript' },
+          { text: '学习 Vue' },
+          { text: '整个牛项目' }
+        ],
+        sets: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],
+        message_with_input: '',
+        message_with_input_1: '',
+        hasCommonItem: false,
+        rawHtml: '<span style="color: red">This should be red.</span>',
+        message_with_computer: 'Vue 基础学习',
+        firstName: '李',
+        lastName: '大钊',
+        // fullName: '李大钊',
+        classItem1: {
+          common_item: this.hasCommonItem
+        },
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('')
+        },
+        even: function (numbers) {
+          return numbers.filter(function (number) {
+            return number % 2 === 0
+          })
+        },
+        action_click: function (msg) {
+          console.warn(msg)
+          // alert(msg)
+        }
+      },
+      watch: {
+        message_with_input (newValue, oldValue) {
+          console.log(newValue + " <- " + oldValue)
+          // console.log(newValue ? "newValue: " + "true" : "newValue: " + "false")
+          // console.log(oldValue ? "oldValue: " + "true" : "oldValue: " + "false")
+          if (oldValue && oldValue.length > 0 && newValue && newValue.length > 0) {
+            this.hasCommonItem = true
+          } else {
+            this.hasCommonItem = false
+          }
+          this.classItem1.common_item = this.hasCommonItem
+        },
+        // firstName: function (val) {
+        //   this.fullName = val + ' ' + this.lastName
+        // },
+        // lastName: function (val) {
+        //   this.fullName = this.firstName + ' ' + val
+        // }
+      },
+      computed: {
+        // 计算属性的 getter
+        reversedMessageWithComputer: function () {
+          // `this` 指向 vm 实例
+          return this.message_with_computer.split('').reverse().join('')
+        },
+        // fullName: function () {
+        //   return this.firstName + ' ' + this.lastName
+        // },
+        fullName: {
+          // getter
+          get: function () {
+            return this.firstName + ' ' + this.lastName
+          },
+          // setter
+          set: function (newValue) {
+            var names = newValue.split(' ')
+            this.firstName = names[0]
+            this.lastName = names[names.length - 1]
+          }
+        },
+        classItem2: function () {
+          return {
+            common_item: this.hasCommonItem
+          }
+        }
       }
     })
   </script>
+  <style lang="css" scoped>
+    .container {
+      margin-left: 10px;
+      margin-right: 10px;
+      padding: 10px;
+      flex-direction: column;
+    }
+
+    .common-bg {
+      background-color: darkgray;
+      padding: 5px;
+    }
+
+    .common_item {
+      border-style: solid;
+      border-radius: 8px;
+      border-color: black;
+      border-width: 1px;
+    }
+
+    .common_item_padding {
+      padding: 10px;
+    }
+
+    .common_item_margin {
+      margin-top: 10px;
+    }
+
+    .span-item {
+      /* margin-top: 15px; */
+      padding: 5px;
+    }
+  </style>
 </body>
 
 </html>
